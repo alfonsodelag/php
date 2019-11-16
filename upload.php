@@ -1,37 +1,42 @@
-<?php
-
-echo  $_POST["name"]; 
-echo "<br>";
-
-echo  $_POST["email"]; 
-echo "<br>";
-
-echo  $_GET["name"]; 
-echo "<br>";
-
-echo  $_GET["email"]; 
-echo "<br>";
+<!-- <?php
 
 
 
-$num_archivos = count($_FILES['archivo']['name']);
-echo $num_archivos;
 
-for ($i=0; $i <=$num_archivos; $i++) { 
-    if(!empty($_FILES['archivo']['name'][$i])) {
-        $ruta_nueva = "stuff" . $_FILES['archivo']['name'][$i];
-        if(file_exists($ruta_nueva)) {
-            echo "el archivo ".$_FILES['archivo']['tmp_name'][$i]." ya se encuentra en el servidor<br>";  
-        }else{
-            $ruta_temporal = $_FILES['archivo']['tmp_name'][$i];
-            move_uploaded_file($ruta_temporal, $ruta_nueva);
-            echo "el archivo ".$_FILES['archivo']['tmp_name'][$i]." ya se encuentra en el servidor<br>";   
+$num_files = count($_FILES['file']['name']);
 
-        }
+$formatos = array('.jpg', '.png', '.txt', '.pdf');
+
+$date = date("Y-m-d");
+
+for ($i=0; $i <= $num_files ; $i++) { 
+    if (!empty($_FILES['file']['name']['$i'])) {
+        $ruta_nueva = "upload/" .$_FILES['file']['name'];
     }
 }
 
 
-echo "El archivo es";
+
+    if(isset($_POST['boton'])) {
+    $nombrefile = $_FILES['file']['name'];
+    $nombreTmpfile = $_FILES['file']['tmp_name'];
+    $ext = substr($nombrefile, strrpos($nombrefile, '.'));
+    if(in_array($ext, $formatos)){
+        if(move_uploaded_file($nombreTmpfile, "upload/$nombrefile")){
+            echo "Felicidades, $nombrefile ha subido correctamente, con fecha $date";
+        }else{
+            echo "Ocurrió un error";
+        }
+    }else{
+        echo "file no permitido";
+    }
+}  
+
+
 
 ?>
+        
+ 
+
+
+
