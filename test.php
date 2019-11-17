@@ -8,7 +8,7 @@ $extensions = array('jpg', 'txt', 'png', 'pdf'); //
 $folder =  "upload/".$date;
 //check folder existance. If you put this inside loop, then everytime new folder will be created.
 //If you use a variable inside an if or a for loop, then that variable can't be accessed from outside.
-if(!file_exists($folder))  //Why is if file DOESN'T exist, create folder? Why not if file exists, put it in a folder?
+if(!file_exists($folder))  
 {
     //make new directory with date
     mkdir($folder);
@@ -22,6 +22,7 @@ for ($i=0; $i < $num_archivos; $i++) { // loop through the files uploaded from f
          //  slash(/) is mainly used for making path of a folder or access folder.
         $ruta_nueva = $folder."/".$_FILES['archivo']['name'][$i]; //make target directory
         $explode = explode('.',$_FILES['archivo']['name'][$i]);
+        $name_extension = $explode[0];
         $file_extension = $explode[1];
        // echo "<pre>";
        // print_r( $explode[1]); exit;
@@ -35,16 +36,16 @@ for ($i=0; $i < $num_archivos; $i++) { // loop through the files uploaded from f
             $uploadOk = 0;
         }else if (file_exists($ruta_nueva)) { // chech if file is already exist in our target directory
             echo "El archivo ".$_FILES['archivo']['name'][$i]." ya se encuentra en servidor<br>";
-        }else {
-                //$ruta_temporal = $_FILES['archivo']['tmp_name'][$i]; //take file
+        }else{
                 $ruta_temporal = $_FILES["archivo"]["tmp_name"][$i]; //take file
-                move_uploaded_file($ruta_temporal,$ruta_nueva); //finally upload. first param=file, second param = destination.
+                move_uploaded_file($_FILES["archivo"]["tmp_name"][$i], $ruta_nueva);
                 echo "El archivo ".$_FILES['archivo']['name'][$i]." se subió al servidor con fecha $date<br>"; //print success message
         }
-
-        // 1MB = 1024KB
-        // 1KB = 1024byte
-        //4MB = 4X1024X1024 == 4194304bytes 
+        // $num = 0;
+        // while (file_exists($ruta_nueva)) {
+        //     $new_name = $name_extension.$num;
+        //     $num++;
+        move_uploaded_file($_FILES["archivo"]["tmp_name"][$i], $ruta_nueva);
 
     }   
 }
