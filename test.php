@@ -31,22 +31,20 @@ for ($i=0; $i < $num_archivos; $i++) { // loop through the files uploaded from f
         {
             echo $file_extension.' extension format not allowed<br>';
         }elseif ($_FILES["archivo"]["size"][$i]> 4194304) {
-            
             echo "Sorry, your file is too large.";
             $uploadOk = 0;
         }else if (file_exists($ruta_nueva)) { // chech if file is already exist in our target directory
             echo "El archivo ".$_FILES['archivo']['name'][$i]." ya se encuentra en servidor<br>";
         }else{
-                $ruta_temporal = $_FILES["archivo"]["tmp_name"][$i]; //take file
-                move_uploaded_file($_FILES["archivo"]["tmp_name"][$i], $ruta_nueva);
-                echo "El archivo ".$_FILES['archivo']['name'][$i]." se subió al servidor con fecha $date<br>"; //print success message
+            $ruta_temporal = $_FILES["archivo"]["tmp_name"][$i]; //take file
+            move_uploaded_file($_FILES["archivo"]["tmp_name"][$i], $ruta_nueva);
+            echo "El archivo ".$_FILES['archivo']['name'][$i]." se subió al servidor con fecha $date<br>"; //print success message
         }
-        // $num = 0;
-        // while (file_exists($ruta_nueva)) {
-        //     $new_name = $name_extension.$num;
-        //     $num++;
+        $num = 0;
+        while (file_exists($ruta_nueva)) {
+            $new_name = $name_extension.$num;
+            $num++;
         move_uploaded_file($_FILES["archivo"]["tmp_name"][$i], $ruta_nueva);
-
     }   
 }
 
