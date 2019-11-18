@@ -4,8 +4,8 @@ $num_archivos = count($_FILES['archivo']['name']);
 $date = date("d-m-Y");
 $extensions = array('jpg', 'txt', 'png', 'pdf'); //
 
-
 $folder =  "upload/".$date;
+
 //check folder existance. If you put this inside loop, then everytime new folder will be created.
 //If you use a variable inside an if or a for loop, then that variable can't be accessed from outside.
 if(!file_exists($folder))  
@@ -40,48 +40,14 @@ for ($i=0; $i < $num_archivos; $i++) { // loop through the files uploaded from f
             move_uploaded_file($_FILES["archivo"]["tmp_name"][$i], $ruta_nueva);
             echo "El archivo ".$_FILES['archivo']['name'][$i]." se subió al servidor con fecha $date<br>"; //print success message
         }
-        $num = 0;
-        while (file_exists($ruta_nueva)) {
-            $new_name = $name_extension.$num;
-            $num++;
-        move_uploaded_file($_FILES["archivo"]["tmp_name"][$i], $ruta_nueva);
-    }   
+        // $num = 0;
+        // while (file_exists($ruta_nueva)) {
+        //     $new_name = $name_extension.$num;
+        //     $num++;
+    }
+    move_uploaded_file($_FILES["archivo"]["tmp_name"][$i], $ruta_nueva);   
 }
 
-// function generateRandomString($length = 15) {
-//     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-//     $charactersLength = strlen($characters);
-//     $randomString = '';
-//     for ($i = 0; $i < $length; $i++) {
-//         $randomString .= $characters[rand(0, $charactersLength - 1)];
-//     }
-//     return $randomString;
-// }
-
-// function generateNewfilename()
-// {
-//     $filtered_files = array();
-//     $files = scandir('upload/16-11-2019');
-//     for($i = 0; $i< count($files); $i++)
-//     {
-//         if($files[$i] == '.' || $files[$i] == '..')
-//         {
-//             continue;
-//         }else {
-//            array_push($filtered_files,$files[$i]);
-//         }
-//     }
-//     // here need some time for solving the problme.
-//     // logic_______
-//     // scan all files. 
-//     // if file something.txt
-//     // then next file will be something_1.txt
-//     // it needs time 
-//     echo "<pre>";
-//     print_r($filtered_files);
-// }
-
-// generateNewfilename();
 
 ?>
 
